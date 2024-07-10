@@ -17,10 +17,7 @@
     $bulan_teks = date("F");
     $tahun = date("Y");
 
-    $send1 = curl("monthly", "type=transaction&tahun=" . $tahun . "&bulan=" . $bulan_angka . "");
-    echo '<pre>';
-    print_r($send1);
-    echo '</pre>';
+    
     ?>
     
     
