@@ -10,17 +10,14 @@
 </head>
 
 <body>
-		<?php 
-        require_once("fungsi.php");
+    <?php 
+    require_once("fungsi.php");
 
     $bulan_angka = date("m");
     $bulan_teks = date("F");
     $tahun = date("Y");
-
-    
     ?>
-    
-    
+
     <h1>Dashboard - TOKO</h1>
     <h3><?= date("l, d-m-Y") ?> <span id="jam"></span>:<span id="menit"></span>:<span id="detik"></span></h3>
     <hr>
@@ -34,6 +31,8 @@
 
                 if (!empty($hasil1)) {
                     echo $hasil1->jml;
+                } else {
+                    echo "0";
                 }
                 ?>
             </span>
@@ -47,6 +46,8 @@
 
                 if (!empty($hasil2)) {
                     echo "IDR " . number_format($hasil2->jml, 2, ',', '.');
+                } else {
+                    echo "IDR 0,00";
                 }
                 ?>
             </span>
@@ -60,28 +61,57 @@
 
                 if (!empty($hasil3)) {
                     echo $hasil3->jml;
+                } else {
+                    echo "0";
                 }
                 ?>
             </span>
         </div>
-        </div>
+    </div>
     <div class="flex-container" id="tahunan">
         <div class="item">
             <strong>Transaction <?= $tahun ?></strong><br><br>
             <span class="number">
-                0
+                <?php
+                $send4 = curl("yearly", "type=transaction&tahun=" . $tahun);
+                $hasil4 = $send4->results;
+
+                if (!empty($hasil4)) {
+                    echo $hasil4->jml;
+                } else {
+                    echo "0";
+                }
+                ?>
             </span>
         </div>
         <div class="item">
             <strong>Earning <?= $tahun ?></strong><br><br>
             <span class="number">
-                0
+                <?php
+                $send5 = curl("yearly", "type=earning&tahun=" . $tahun);
+                $hasil5 = $send5->results;
+
+                if (!empty($hasil5)) {
+                    echo "IDR " . number_format($hasil5->jml, 2, ',', '.');
+                } else {
+                    echo "IDR 0,00";
+                }
+                ?>
             </span>
         </div>
         <div class="item">
             <strong>User <?= $tahun ?></strong><br><br>
             <span class="number">
-                0
+                <?php
+                $send6 = curl("yearly", "type=user&tahun=" . $tahun);
+                $hasil6 = $send6->results;
+
+                if (!empty($hasil6)) {
+                    echo $hasil6->jml;
+                } else {
+                    echo "0";
+                }
+                ?>
             </span>
         </div>
     </div>
